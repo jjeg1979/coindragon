@@ -1,7 +1,7 @@
 const Navbar = () => {
     return (
         <header>
-            <h1>CoinDrago</h1>
+            <h1>CoinDragon</h1>
             <nav>
                 <ul>
                     <li><a href="">Markets</a>
