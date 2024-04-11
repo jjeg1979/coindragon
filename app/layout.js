@@ -17,7 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={josefin_sans.className}>
         <Navbar />
+
         {children}
+        
         <Footer />
       </body>
     </html>
