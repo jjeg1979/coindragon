@@ -1,7 +1,11 @@
 export default function Home() {
   return (
     <main>
-      <h1>Hello, world!</h1>
+      <h2>Portfolio Overview</h2>
+
+      <div className="details">
+        <div className="divider"></div>
+      </div>
     </main>
   )
 }
