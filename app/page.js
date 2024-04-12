@@ -66,7 +66,6 @@ export default function Home() {
   }
   
   useEffect(() => {
-    console.log("Load up data here...")
     if (!markets) {
       getMarkets();
     }
@@ -93,12 +92,16 @@ export default function Home() {
       <div className="details">
         <div className="divider"></div>
           
-          <Holdings />          
+          <Holdings 
+            tokens={tokens}
+          />          
 
-          <Values />
+          <Values 
+            tokens={tokens}
+          />
           
           <Assets />
-          
+
       </div>
     </main>
   );
