@@ -1,29 +1,54 @@
+'use client';
+import { useState } from 'react';
 import Image from 'next/image';
+
+// Components
+import Account from './Accounts'
+import Add from './Add'
 
 // Images
 import up from '../assets/up.svg';
 import down from '../assets/down.svg';
 import add from '../assets/add.svg';
 
-const Overview = () => {
+const Overview = ({account, setAccount}) => {
+
+    const [isAccountModalOpen, setIsAccountModalOpen] = useState(false) // state for Account Modal (true / false)
+    const [isAddTokenModalOpen, setIsAddTokenModalOpen] = useState(false)
+
+    const accountModalHandler = () => {
+        setIsAccountModalOpen(true)
+    }
+    const tokenModalHandler = () => {
+        if (account) {
+            setIsAddTokenModalOpen(true)
+        } else {
+            setIsAccountModalOpen(true)
+        }
+    }
+
     return (
         <div className="overview">
             <div className="overview__account">
                 <h3>Account</h3>
-                <button>
-                    <Image
-                        src={add}
-                        width={20}
-                        height={20}
-                        alt="Set account"
-                    />
-                </button>
+                { account ? (
+                    <p>{account.slice(0, 6) + "..." + account.slice(-4)}</p>
+                ) : (
+                    <button onClick={accountModalHandler}>
+                        <Image
+                            src={add}
+                            width={20}
+                            height={20}
+                            alt="Set account"
+                        />
+                    </button>
+                )}
             </div>
 
             <div className="overview__tracked">
                <h3>Assets Tracked</h3> 
                <p>0</p>
-               <button>
+               <button onClick={tokenModalHandler}>
                     <Image
                         src={add}
                         width={20}
@@ -50,6 +75,17 @@ const Overview = () => {
                 <span className="green">0.0%</span>
                </p>
             </div>
+
+            {isAccountModalOpen &&  
+                <Account 
+                setIsAccountModalOpen={setIsAccountModalOpen}
+                setAccount = {setAccount} 
+                /> }
+            {isAddTokenModalOpen &&
+                <Add 
+                setIsAddTokenModalOpen={setIsAddTokenModalOpen}
+                /> }
+            
         </div>
     );
 }
