@@ -11,7 +11,7 @@ import marketSnapshot from './snapshots/markets.json'
 export default function Home() {
   const [account, setAccount] = useState(null)
 
-  const [markets, setMarkets] = useState(null)
+  const [markets, setMarkets] = useState(marketSnapshot)
 
   return (
     <main>
