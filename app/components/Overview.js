@@ -11,7 +11,7 @@ import up from '../assets/up.svg';
 import down from '../assets/down.svg';
 import add from '../assets/add.svg';
 
-const Overview = ({account, setAccount}) => {
+const Overview = ({account, setAccount, markets, trackedTokens, setTrackedTokens}) => {
 
     const [isAccountModalOpen, setIsAccountModalOpen] = useState(false) // state for Account Modal (true / false)
     const [isAddTokenModalOpen, setIsAddTokenModalOpen] = useState(false)
@@ -47,7 +47,7 @@ const Overview = ({account, setAccount}) => {
 
             <div className="overview__tracked">
                <h3>Assets Tracked</h3> 
-               <p>0</p>
+               <p>{trackedTokens.length}</p>
                <button onClick={tokenModalHandler}>
                     <Image
                         src={add}
@@ -78,12 +78,16 @@ const Overview = ({account, setAccount}) => {
 
             {isAccountModalOpen &&  
                 <Account 
-                setIsAccountModalOpen={setIsAccountModalOpen}
-                setAccount = {setAccount} 
+                    setIsAccountModalOpen={setIsAccountModalOpen}
+                    setAccount = {setAccount} 
                 /> }
+                {console.log(markets)}
             {isAddTokenModalOpen &&
                 <Add 
-                setIsAddTokenModalOpen={setIsAddTokenModalOpen}
+                    setIsAddTokenModalOpen={setIsAddTokenModalOpen}
+                    markets={markets}
+                    trackedTokens={trackedTokens}
+                    setTrackedTokens={setTrackedTokens}
                 /> }
             
         </div>
