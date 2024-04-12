@@ -1,10 +1,17 @@
 "use client"
 
 import { useState } from 'react';
+
+// Components
 import Overview from './components/Overview';
+
+// Snapshot Data
+import marketSnapshot from './snapshots/markets.json'
 
 export default function Home() {
   const [account, setAccount] = useState(null)
+
+  const [markets, setMarkets] = useState(null)
 
   return (
     <main>
