@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 
 // Components
 import Overview from './components/Overview';
+import Holdings from './components/Holdings';
+import Assets from './components/Assets';
+import Values from './components/Values';
+
 
 // Snapshot Data
 // const marketSnapshot = require('./snapshots/markets.json')
@@ -88,6 +92,13 @@ export default function Home() {
 
       <div className="details">
         <div className="divider"></div>
+          
+          <Holdings />          
+
+          <Values />
+          
+          <Assets />
+          
       </div>
     </main>
   );
