@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
 
 // Components
 import Overview from './components/Overview';
@@ -24,9 +25,14 @@ export default function Home() {
   const [tokens, setTokens] = useState([])
 
   const getMarkets = async () => {
-    // TODO: Make API call to fetch market data
-    // Use snapshot for now
-    setMarkets(marketSnapshot)
+    const ROOT_URL = "https://api.coingecko.com/api/v3/"
+    const ENDPOINT = `/coins/markets`
+    const AMOUNT = 1000
+    const ARGUMENTS = `?vs_currency=usd&category=ethereum-ecosystem&order=market_cap_desc&per_page=${AMOUNT}&page=1&sparkline=false&locale=en`
+
+    const response = await fetch(ROOT_URL + ENDPOINT  + ARGUMENTS)
+    
+    setMarkets(await response.json())
   }
 
   const getToken = async () => {
@@ -37,19 +43,39 @@ export default function Home() {
     const market = markets.find((market) => market.id === id)
 
     // Token details
-    const tokenSnapshot = tokensSnapshot.find((token) => token.id === id)
+    // const tokenSnapshot = tokensSnapshot.find((token) => token.id === id)    
+
+    // Fetch token details via API request (wejust need the contract addres)
+    const ROOT_URL = "https://api.coingecko.com/api/v3/"
+    const TOKEN_ENDPOINT = `/coins/${id}`
+    const TOKEN_ARGUMENTS = `?tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
+
+    const tokenResponse = await fetch(ROOT_URL + TOKEN_ENDPOINT + TOKEN_ARGUMENTS)
+
+    const tokenSnapshot = await tokenResponse.json()
     const details = tokenSnapshot.detail_platforms.ethereum
 
-    // Prices
-    const prices = pricesSnapshot[id]
+    // Fetch token 7 day average prices via API request
+    const PRICES_ENDPOINT  = `/coins/${id}/market_chart/`
+    const PRICES_ARGUMENTS = `?vs_currency=usd&days=7&interval=daily`
 
-    // Balances
-    const balanceSnapshot = {
-      'ethereum': 14.964947009309487,
-      'usd-coin': 41.65432,
+    const pricesResponse = await fetch(ROOT_URL + PRICES_ENDPOINT + PRICES_ARGUMENTS)
+    const prices = (await pricesResponse.json()).prices
+    //const prices = pricesSnapshot[id]
+    
+    // Fetch balance
+    const ETH_RPC_URL = "https://rpc.ankr.com/eth"
+    const PROVIDER = new ethers.JsonRpcProvider(ETH_RPC_URL)
+    const ABI = ["function balanceOf(address) view returns (uint)"]
+
+    let balance;
+    if (details) {
+      const contract = new ethers.Contract(details.contract_address, ABI, PROVIDER);    
+      balance = Number(ethers.formatUnits(await contract.balanceOf(account), details.decimal_places));
+    } else {
+      balance = Number(ethers.formatUnits(await PROVIDER.getBalance(account), 18))
     }
 
-    const balance = balanceSnapshot[id]
     
     // Token object
     const token = {
@@ -63,6 +89,7 @@ export default function Home() {
 
     setTokens([...tokens, token])
   }
+
   
   useEffect(() => {
     if (!markets) {
