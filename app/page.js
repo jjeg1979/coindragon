@@ -9,14 +9,6 @@ import Holdings from './components/Holdings';
 import Assets from './components/Assets';
 import Values from './components/Values';
 
-
-
-// Snapshot Data
-// const marketSnapshot = require('./snapshots/markets.json')
-import marketSnapshot from './snapshots/markets.json';
-import tokensSnapshot from './snapshots/tokens.json';
-import pricesSnapshot from './snapshots/prices.json';
-
 export default function Home() {
   const [account, setAccount] = useState(null)
   const [trackedTokens, setTrackedTokens] = useState([])
