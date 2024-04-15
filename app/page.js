@@ -9,6 +9,7 @@ import Assets from './components/Assets';
 import Values from './components/Values';
 
 
+
 // Snapshot Data
 // const marketSnapshot = require('./snapshots/markets.json')
 import marketSnapshot from './snapshots/markets.json';
@@ -17,7 +18,6 @@ import pricesSnapshot from './snapshots/prices.json';
 
 export default function Home() {
   const [account, setAccount] = useState(null)
-
   const [trackedTokens, setTrackedTokens] = useState([])
 
   const [markets, setMarkets] = useState(null)
@@ -45,9 +45,8 @@ export default function Home() {
 
     // Balances
     const balanceSnapshot = {
-      'ethereum': 0.012862445262358626,
+      'ethereum': 14.964947009309487,
       'usd-coin': 41.65432,
-      'tether': 1.001
     }
 
     const balance = balanceSnapshot[id]
@@ -100,7 +99,10 @@ export default function Home() {
             tokens={tokens}
           />
           
-          <Assets />
+          <Assets 
+            tokens={tokens}
+            setTokens={setTokens}
+          />
 
       </div>
     </main>
