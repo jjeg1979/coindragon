@@ -52,7 +52,8 @@ const Holdings = ({ tokens }) => {
             }} 
             series={balances ? balances : defaultBalances} 
             type="pie" 
-            height={300} 
+            height="300"
+            width="100%"
           />
 
         </div>       

@@ -100,7 +100,7 @@ const Values = ({ tokens }) => {
                 ]}
                 type="line"
                 height="300"
-                
+                width="100%"                
             />
         </div>
        </div>
