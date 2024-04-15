@@ -97,7 +97,7 @@ const Overview = ({
 
             <div className="overview__tracked">
                <h3>Assets Tracked</h3> 
-               <p>{trackedTokens.length}</p>
+               <p>{tokens.length}</p>
                <button onClick={tokenModalHandler}>
                     <Image
                         src={add}
