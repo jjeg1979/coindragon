@@ -14,7 +14,7 @@ const Holdings = ({ tokens }) => {
 
     for (var i = 0; i < tokens.length; i++) {
       syms.push(tokens[i].market.symbol.toUpperCase())
-      bals.push(tokens[i].value)
+      bals.push(tokens[i].balance)
     }
     setSymbols(syms)  
     setBalances(bals)  
